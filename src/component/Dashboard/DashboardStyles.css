@@ -1,0 +1,72 @@
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--spacing-6);
+  width: 100%;
+}
+
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-4);
+  gap: 7px;
+}
+/*!! Hacer el daywork header  */
+
+.card-container {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-6);
+  cursor: pointer;
+}
+
+.card {
+  background-color: var(--surface);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-3);
+  width: 100%;
+  min-width: 16rem;
+  min-height: 6rem;
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s ease;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+.card-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%;
+
+  & .day-name {
+    color: var(--text-primary);
+  }
+
+  & .card-description {
+    color: var(--text-secondary);
+  }
+}
+
+.icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-right: var(--spacing-1);
+}
+
+.btn-container {
+  padding-top: var(--spacing-4);
+}
