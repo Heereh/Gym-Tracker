@@ -24,18 +24,30 @@ const CardExercise = ({
   weight,
   note, */
 ExerciseProps) => {
-  const { removeExercise, updateExercise } = useGymStore();
-  const { id: workoutId } = useParams();
+  const { removeExercise } = useGymStore();
+  const { id } = useParams();
   const workout = useGymStore((state) =>
-    state.workouts.find((w) => w.id === workoutId),
+    state.workouts.find((w) => w._id === id),
   );
 
-  const handleDeleteExercise = () => {
-    if (workout.exercises.length === 1) {
+  /*   const handleDeleteExercise = () => {
+    if (workout?.exercises.length === 1) {
       alert('No puedes eliminar el último ejercicio');
       return;
     }
+    try
     removeExercise(workoutId, exerciseId);
+  }; */
+
+  const handleDeleteExercise = async () => {
+    if (workout?.exercises.length === 1) {
+      alert('No puedes eliminar el último ejercicio');
+      return;
+    }
+
+    try {
+      
+    } catch (error) {}
   };
 
   return (

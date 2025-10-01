@@ -6,6 +6,7 @@ import { LoaderCircle } from 'lucide-react';
 import './signUpStyles.css';
 import { useAuthStore } from '../../store/GymUserStore';
 import { useNavigate } from 'react-router';
+import { loginUser } from '../../api/authService';
 
 const initialValues: initialValuesLogin = {
   email: '',
@@ -16,24 +17,22 @@ const LoginForm = () => {
   const login = useAuthStore((state) => state.login);
   const navigate = useNavigate();
 
-  const handleSubmit = (values, { setSubmitting }) => {
-    // Aquí iría tu llamada a la API
-    // const response = await myApiClient.login(values);
-
-    // Simulación de una respuesta exitosa
-    setTimeout(() => {
-      const userDataFromApi = {
-        user: { id: 1, email: values.email, name: 'testuser' },
-        token: 'fake-jwt-token-12345',
-      };
-
-      // Llamamos a la acción 'login' para guardar los datos en el store
-      login(userDataFromApi);
-      setSubmitting(false);
-
-      // Redirigimos al usuario a la página principal
+  const handleSubmit = async (values, { setSubmitting, setErrors }) => {
+    try {
+      const userData = await loginUser(values);
+      login(userData);
       navigate('/');
-    }, 1500);
+    } catch (error) {
+      if (error.response?.status === 401) {
+        setErrors({ email: 'Credenciales incorrectas' });
+      } else {
+        alert(
+          'Hubo un error al iniciar sesión. Por favor, inténtalo de nuevo.',
+        );
+      }
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (

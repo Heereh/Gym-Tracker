@@ -3,10 +3,10 @@ import { registerValidationSchema } from '../../formik/ValidationSchema';
 import { type registerInitialValues } from '../../formik/initialValues';
 import CustomButton from '../../component/iu/CustomButton/CustomButton';
 import './signUpStyles.css';
-import React from 'react';
 import { LoaderCircle } from 'lucide-react';
 import { useAuthStore } from '../../store/GymUserStore';
 import { useNavigate } from 'react-router';
+import { createUser } from '../../api/authService';
 
 const initialValues: registerInitialValues = {
   username: '',
@@ -18,34 +18,23 @@ const RegisterForm = () => {
   const login = useAuthStore((state) => state.login);
   const navigate = useNavigate();
 
-  const handleSubmit = (values, { setSubmitting }) => {
-    // 1. Aquí iría la llamada real a tu API para el registro.
-    // Ej: const response = await myApiClient.register(values);
-
-    // Simulación de una respuesta exitosa de la API
-    setTimeout(() => {
-      // 2. Extrae los datos del usuario y el token de la respuesta de la API.
-      const userDataFromApi = {
-        user: {
-          id: Date.now(),
-          email: values.email,
-          username: values.username,
-          name: values.username, // Usamos el username como nombre, como en tu LoginForm.
-        },
-        token: 'fake-jwt-token-from-register',
-      };
-
-      // 3. Llama a la acción 'login' para actualizar el estado global.
-      login(userDataFromApi);
-
-      setSubmitting(false);
-
-      // 4. Redirige al usuario a la página principal, que ahora estará accesible.
+  const handleSubmit = async (values, { setSubmitting, setErrors }) => {
+    try {
+      const userData = await createUser(values);
+      login(userData);
       navigate('/');
-
-      // Opcional: una alerta para confirmar
-      alert(`¡Registro exitoso para ${values.username}!`);
-    }, 1500);
+    } catch (error) {
+      if (error.response?.status === 409) {
+        // Ejemplo: si el usuario ya existe (código 409)
+        setErrors({ email: 'Este email ya está en uso.' });
+      } else {
+        alert(
+          'Hubo un error al registrar el usuario. Por favor, inténtalo de nuevo.',
+        );
+      }
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -55,7 +44,7 @@ const RegisterForm = () => {
       onSubmit={handleSubmit}
     >
       {({ isSubmitting }) => (
-        <Form className="form" onSubmit={handleSubmit}>
+        <Form className="form">
           <div className="formGroup">
             <label htmlFor="name-register">Nombre</label>
             <Field

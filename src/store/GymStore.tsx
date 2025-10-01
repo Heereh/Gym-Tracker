@@ -6,9 +6,10 @@ import { persist } from 'zustand/middleware';
 } from '../types'; */
 
 export type WorkoutTypes = {
-  id: string;
-  day: string;
+  _id: string;
+  dayOfWeek: string;
   exercises: ExerciseTypes[];
+  completed?: boolean;
 };
 
 export type ExerciseTypes = {
@@ -22,6 +23,7 @@ export type ExerciseTypes = {
 
 interface GymTrackerStore {
   workouts: WorkoutTypes[];
+  setWorkouts: (workouts: WorkoutTypes[]) => void;
   addWorkoutDay: (workoutDay: WorkoutTypes) => void;
   removeWorkoutDay: (workoutId: string) => void;
   updateWorkoutDay: (
@@ -36,12 +38,7 @@ interface GymTrackerStore {
     updateData: Partial<ExerciseTypes>,
   ) => void;
 }
-
-export const useGymStore = create(
-  persist<GymTrackerStore>(
-    (set) => ({
-      workouts: [
-        {
+/* {
           id: Date.now().toString(),
           day: 'Lunes',
           exercises: [
@@ -54,8 +51,12 @@ export const useGymStore = create(
               nota: '',
             },
           ],
-        },
-      ],
+        }, */
+export const useGymStore = create(
+  persist<GymTrackerStore>(
+    (set) => ({
+      workouts: [],
+      setWorkouts: (workouts: WorkoutTypes[]) => set({ workouts }),
       addWorkoutDay: (newWorkout: WorkoutTypes) => {
         set((state) => ({
           workouts: [...state.workouts, newWorkout],
@@ -63,13 +64,13 @@ export const useGymStore = create(
       },
       removeWorkoutDay: (workoutId) => {
         set((state) => ({
-          workouts: state.workouts.filter((w) => w.id !== workoutId),
+          workouts: state.workouts.filter((w) => w._id !== workoutId),
         }));
       },
       updateWorkoutDay: (workoutId, updateData) => {
         set((state) => ({
           workouts: state.workouts.map((workout) =>
-            workout.id === workoutId ? { ...workout, ...updateData } : workout,
+            workout._id === workoutId ? { ...workout, ...updateData } : workout,
           ),
         }));
       },
@@ -77,7 +78,7 @@ export const useGymStore = create(
       addExercise: (newExercise, workoutId) => {
         set((state) => ({
           workouts: state.workouts.map((workout) =>
-            workout.id === workoutId
+            workout._id === workoutId
               ? { ...workout, exercises: [...workout.exercises, newExercise] }
               : workout,
           ),
@@ -86,7 +87,7 @@ export const useGymStore = create(
       removeExercise: (workoutId, exerciseId) => {
         set((state) => ({
           workouts: state.workouts.map((workout) => {
-            if (workout.id === workoutId) {
+            if (workout._id === workoutId) {
               return {
                 ...workout,
                 exercises: workout.exercises.filter(
@@ -101,7 +102,7 @@ export const useGymStore = create(
       updateExercise: (workoutId, exerciseId, updateData) => {
         set((state) => ({
           workouts: state.workouts.map((workout) => {
-            if (workout.id === workoutId) {
+            if (workout._id === workoutId) {
               return {
                 ...workout,
                 exercises: workout.exercises.map((exercise) =>
