@@ -4,61 +4,56 @@ import { Trash } from 'lucide-react';
 import './CardExericseStyle.css';
 import { useGymStore } from '../../../store/GymStore';
 import { useParams } from 'react-router';
+import { deleteExercise } from '../../../api/workoutService';
 
 interface ExerciseProps {
+  key: string;
   id: string;
   name: string;
   exerciseNumber: number;
-  /* sets: number;
   reps: string;
   weight: number;
-  note: string; */
+  sets: number;
+  note: string;
 }
 
 const CardExercise = ({
+  key,
   id: exerciseId,
   name,
   exerciseNumber,
-}: /* sets,
+  sets,
   reps,
   weight,
-  note, */
-ExerciseProps) => {
+  note,
+}: ExerciseProps) => {
   const { removeExercise } = useGymStore();
   const { id } = useParams();
   const workout = useGymStore((state) =>
     state.workouts.find((w) => w._id === id),
   );
 
-  /*   const handleDeleteExercise = () => {
-    if (workout?.exercises.length === 1) {
-      alert('No puedes eliminar el último ejercicio');
-      return;
-    }
-    try
-    removeExercise(workoutId, exerciseId);
-  }; */
-
-  const handleDeleteExercise = async () => {
-    if (workout?.exercises.length === 1) {
-      alert('No puedes eliminar el último ejercicio');
-      return;
-    }
-
+  const handleDeleteExercise = async (dayId: string, exerciseId: string) => {
+    if (!dayId) return;
     try {
-      
-    } catch (error) {}
+      await deleteExercise(dayId, exerciseId);
+      removeExercise(dayId, exerciseId);
+      console.log(`Ejercicio ${exerciseId} eliminado exitosamente`);
+    } catch (error) {
+      console.error('Error al eliminar el ejercicio:', error);
+      alert('Hubo un error al eliminar el ejercicio. Inténtalo de nuevo.');
+    }
   };
 
   return (
-    <div className="workout__card">
+    <div className="workout__card" key={key}>
       <div className="workout__card-header">
         <h2 className="workout__card-title">Ejercicio {exerciseNumber}</h2>
         <CustomButton
           size="small"
           backgroundColor="danger"
           appearance="ghost"
-          onClick={handleDeleteExercise}
+          onClick={() => handleDeleteExercise(workout?._id || '', exerciseId)}
         >
           <Trash />
         </CustomButton>
@@ -70,7 +65,7 @@ ExerciseProps) => {
             className="exercise__input btn-card"
             placeholder="Nombre del ejercicio"
             type="text"
-          />
+          ></input>
         </div>
         <div className="exercise__detail-container">
           <div className="detail-item">
@@ -81,9 +76,10 @@ ExerciseProps) => {
               id="series"
               className="detail-item__input btn-card"
               type="number"
-              placeholder="0"
+              placeholder="4"
               min="0"
-            />
+              value={sets}
+            ></input>
           </div>
           <div className="detail-item">
             <span id="reps" className="detail-item__title">
@@ -93,7 +89,8 @@ ExerciseProps) => {
               className="detail-item__input btn-card"
               type="text"
               id="reps"
-              placeholder="Reps"
+              placeholder="10-12"
+              value={reps}
             />
           </div>
           <div className="detail-item">
@@ -102,15 +99,21 @@ ExerciseProps) => {
             </span>
             <input
               className="detail-item__input btn-card "
-              type="number"
               id="weight"
+              type="number"
+              value={weight}
               min="0"
             />
           </div>
         </div>
         <div className="workout__card-note">
           <span className="card-note">Nota</span>
-          <input className="card-note-input btn-card" type="text" />
+          <input
+            className="card-note-input btn-card"
+            type="text"
+            placeholder="Escribe una nota"
+            value={note}
+          />
         </div>
       </div>
     </div>

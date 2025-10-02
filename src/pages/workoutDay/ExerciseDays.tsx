@@ -61,10 +61,14 @@ const ExerciseDays = () => {
         ) : (
           workout?.exercises.map((exercise, index) => (
             <CardExercise
-              key={exercise.id}
-              id={exercise.id}
+              key={`${exercise._id}-${index}`}
+              id={exercise._id}
               name={exercise.name}
               exerciseNumber={index + 1}
+              reps={exercise.reps}
+              sets={exercise.sets}
+              weight={exercise.weightKg}
+              note={exercise.notes}
             ></CardExercise>
           ))
         )}

@@ -13,12 +13,12 @@ export type WorkoutTypes = {
 };
 
 export type ExerciseTypes = {
-  id: string;
+  _id: string;
   name: string;
   sets: number;
   reps: string;
-  weight: number;
-  nota: string;
+  weightKg: number;
+  notes: string;
 };
 
 interface GymTrackerStore {
@@ -91,7 +91,7 @@ export const useGymStore = create(
               return {
                 ...workout,
                 exercises: workout.exercises.filter(
-                  (ex) => ex.id !== exerciseId,
+                  (ex) => ex._id !== exerciseId,
                 ),
               };
             }
@@ -106,7 +106,7 @@ export const useGymStore = create(
               return {
                 ...workout,
                 exercises: workout.exercises.map((exercise) =>
-                  exercise.id === exerciseId
+                  exercise._id === exerciseId
                     ? { ...exercise, ...updateData }
                     : exercise,
                 ),

@@ -26,8 +26,8 @@ const ExerciseModal: React.FC<ExerciseModalProps> = ({
     name: '',
     sets: 3,
     reps: '10-12',
-    weight: 10,
-    nota: '',
+    weightKg: 10,
+    notes: '',
   };
 
   const [formData, setFormData] = useState<ExerciseFormData>(
@@ -105,21 +105,21 @@ const ExerciseModal: React.FC<ExerciseModalProps> = ({
               </div>
             </div>
             <div className="form-group">
-              <label htmlFor="weight">Peso (kg)</label>
+              <label htmlFor="weightKg">Peso (kg)</label>
               <input
                 type="number"
-                id="weight"
-                name="weight"
-                value={formData.weight}
+                id="weightKg"
+                name="weightKg"
+                value={formData.weightKg}
                 onChange={handleChange}
               />
             </div>
             <div className="form-group">
-              <label htmlFor="nota">Nota</label>
+              <label htmlFor="notes">Nota</label>
               <textarea
-                id="nota"
-                name="nota"
-                value={formData.nota}
+                id="notes"
+                name="notes"
+                value={formData.notes}
                 onChange={handleChange}
               />
             </div>

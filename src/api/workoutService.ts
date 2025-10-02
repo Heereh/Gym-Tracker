@@ -49,7 +49,7 @@ export const getWorkoutDaysById = async (dayId) => {
 
 export const deleteExercise = async (dayId, exerciseId) => {
   try {
-    await authApi.delete(`/days/${dayId}/exercise/${exerciseId}`);
+    await authApi.delete(`/days/${dayId}/exercises/${exerciseId}`);
     return true;
   } catch (error) {
     throw error.response?.data || error;
