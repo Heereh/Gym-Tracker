@@ -4,14 +4,22 @@ import { useState } from 'react';
 
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
+import LoadingSpinner from '../../component/iu/LoadingSpinner/LoadingSpinner';
+import { useAuthStore } from '../../store/GymUserStore';
 
 type Tab = 'login' | 'register';
 
 const LoginPage = () => {
   const [activeTab, setActiveTab] = useState<Tab>('login');
+  const isLoading = useAuthStore((state) => state.isLoading);
+
   const handleTabChange = (tab: Tab) => {
     setActiveTab(tab);
   };
+
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <div className="loginContainer">

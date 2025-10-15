@@ -13,6 +13,8 @@ type AuthStore = {
   isLoggenIn: boolean;
   login: (userData: { user: User; token: string }) => void;
   logout: () => void;
+  isLoading: boolean;
+  setLoading: (loading: boolean) => void;
 };
 
 export const useAuthStore = create<AuthStore>()(
@@ -22,12 +24,14 @@ export const useAuthStore = create<AuthStore>()(
       user: null,
       accessToken: null,
       isLoggenIn: false,
+      isLoading: false,
       // Iniciar sesion
       login: (userData) => {
         set((state) => ({
           user: (state.user = userData.user),
           token: (state.accessToken = userData.token),
           isLoggenIn: (state.isLoggenIn = true),
+          isLoading: false,
         }));
       },
       logout: () => {
@@ -35,7 +39,11 @@ export const useAuthStore = create<AuthStore>()(
           user: null,
           token: null,
           isLoggenIn: false,
+          isLoading: false,
         }));
+      },
+      setLoading: (loading) => {
+        set({ isLoading: loading });
       },
     }),
     {

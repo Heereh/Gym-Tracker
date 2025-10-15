@@ -14,13 +14,14 @@ const initialValues: initialValuesLogin = {
 };
 
 const LoginForm = () => {
-  const login = useAuthStore((state) => state.login);
+  const { login, setLoading } = useAuthStore();
   const navigate = useNavigate();
 
   const handleSubmit = async (values, { setSubmitting, setErrors }) => {
     try {
+      setLoading(true);
       const userData = await loginUser(values);
-      login(userData);
+      login({ user: userData.user, token: userData.token });
       navigate('/');
     } catch (error) {
       if (error.response?.status === 401) {
@@ -32,6 +33,7 @@ const LoginForm = () => {
       }
     } finally {
       setSubmitting(false);
+      setLoading(false);
     }
   };
 

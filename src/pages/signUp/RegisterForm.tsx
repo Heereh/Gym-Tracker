@@ -15,11 +15,12 @@ const initialValues: registerInitialValues = {
 };
 
 const RegisterForm = () => {
-  const login = useAuthStore((state) => state.login);
+  const { login, setLoading } = useAuthStore();
   const navigate = useNavigate();
 
   const handleSubmit = async (values, { setSubmitting, setErrors }) => {
     try {
+      setLoading(true);
       const userData = await createUser(values);
       login(userData);
       navigate('/');
@@ -34,6 +35,7 @@ const RegisterForm = () => {
       }
     } finally {
       setSubmitting(false);
+      setLoading(false);
     }
   };
 

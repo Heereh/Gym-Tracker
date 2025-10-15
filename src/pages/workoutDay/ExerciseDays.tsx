@@ -12,7 +12,7 @@ import ExerciseModal, {
 
 const ExerciseDays = () => {
   const { id } = useParams();
-  const { addExercise, removeExercise, updateExercise } = useGymStore();
+  const { addExercise, updateExercise } = useGymStore();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
