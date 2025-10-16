@@ -6,7 +6,7 @@
   background-color: var(--surface);
   box-shadow: var(--shadow-lg);
   width: 100vw;
-  padding: var(--spacing-4);
+  padding: var(--spacing-3);
 }
 
 .header-logo {
@@ -19,11 +19,12 @@
     border: var(--radius-full);
   }
 
-  & .header-title {
+  & .logo-title {
     color: var(--primary);
     font: bold;
     font-size: 1.2rem;
     font-weight: 500;
+    letter-spacing: var(--spacing-2);
   }
 }
 

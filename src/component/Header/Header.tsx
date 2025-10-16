@@ -17,8 +17,8 @@ const Header = () => {
       <div className="header-logo">
         <Dumbbell className="logo-icon" />
 
-        <a className="header-title" href="/">
-          GymTracker
+        <a className="logo-title" href="/">
+          Zylo
         </a>
       </div>
       <div className="dropdown">

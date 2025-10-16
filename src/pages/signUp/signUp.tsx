@@ -1,16 +1,16 @@
-import { Dumbbell } from 'lucide-react';
-import './signUpStyles.css';
-import { useState } from 'react';
+import { Dumbbell } from "lucide-react";
+import "./signUpStyles.css";
+import { useState } from "react";
 
-import LoginForm from './LoginForm';
-import RegisterForm from './RegisterForm';
-import LoadingSpinner from '../../component/iu/LoadingSpinner/LoadingSpinner';
-import { useAuthStore } from '../../store/GymUserStore';
+import LoginForm from "./LoginForm";
+import RegisterForm from "./RegisterForm";
+import LoadingSpinner from "../../component/iu/LoadingSpinner/LoadingSpinner";
+import { useAuthStore } from "../../store/GymUserStore";
 
-type Tab = 'login' | 'register';
+type Tab = "login" | "register";
 
 const LoginPage = () => {
-  const [activeTab, setActiveTab] = useState<Tab>('login');
+  const [activeTab, setActiveTab] = useState<Tab>("login");
   const isLoading = useAuthStore((state) => state.isLoading);
 
   const handleTabChange = (tab: Tab) => {
@@ -30,42 +30,42 @@ const LoginPage = () => {
               <Dumbbell className="logoIcon" />
             </div>
           </div>
-          <h1 className="title">GymTracker</h1>
+          <h1 className="logo-title">Zylo</h1>
           <p className="description">Tu compañero de entrenamiento personal</p>
         </div>
         <div className="description2">
-          {activeTab === 'login'
-            ? 'Ingresa tus credenciales para acceder a la cuenta'
-            : 'Crea tu cuenta'}
+          {activeTab === "login"
+            ? "Ingresa tus credenciales para acceder a la cuenta"
+            : "Crea tu cuenta"}
         </div>
         <div className="card-body">
           <div className="tabs">
             <div className="tabsList">
               <button
                 className={`tabsTrigger ${
-                  activeTab === 'login' ? 'active' : ''
+                  activeTab === "login" ? "active" : ""
                 }`}
-                onClick={() => handleTabChange('login')}
+                onClick={() => handleTabChange("login")}
               >
                 Iniciar Sesión
               </button>
               <button
                 className={`tabsTrigger ${
-                  activeTab === 'register' ? 'active' : ''
+                  activeTab === "register" ? "active" : ""
                 }`}
-                onClick={() => handleTabChange('register')}
+                onClick={() => handleTabChange("register")}
               >
                 Registrarse
               </button>
             </div>
             <div
-              className={`tabsContent ${activeTab === 'login' ? 'active' : ''}`}
+              className={`tabsContent ${activeTab === "login" ? "active" : ""}`}
             >
               <LoginForm />
             </div>
             <div
               className={`tabsContent ${
-                activeTab === 'register' ? 'active' : ''
+                activeTab === "register" ? "active" : ""
               }`}
             >
               <RegisterForm />
