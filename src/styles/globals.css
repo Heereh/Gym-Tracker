@@ -60,31 +60,3 @@ body {
   margin: 0 auto;
   background-color: var(--background);
 }
-#header {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  background-color: var(--surface);
-  box-shadow: var(--shadow-lg);
-  width: 100vw;
-  padding: var(--spacing-3);
-}
-
-.header-logo {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-
-  & .logo-icon {
-    color: var(--primary);
-    border: var(--radius-full);
-  }
-
-  & .header-title {
-    color: var(--primary);
-    font: bold;
-    font-size: 1.2rem;
-    font-weight: 500;
-  }
-}

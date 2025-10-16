@@ -1,8 +1,17 @@
-import { Dumbbell } from 'lucide-react';
-import React from 'react';
-import { useAuthStore } from '../../store/GymUserStore';
+import { Dumbbell } from "lucide-react";
+import { useAuthStore } from "../../store/GymUserStore";
+import "./header.css";
 
+import { useNavigate } from "react-router";
 const Header = () => {
+  const user = useAuthStore((state) => state.user?.username);
+  const { logout } = useAuthStore();
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
+
   return (
     <header id="header">
       <div className="header-logo">
@@ -12,11 +21,14 @@ const Header = () => {
           GymTracker
         </a>
       </div>
-      <div>
-        {/* <Avatar.Root>
-              <Avatar.Fallback name="Segun Adebayo" />
-              <Avatar.Image src="https://bit.ly/broken-link" />
-            </Avatar.Root> */}
+      <div className="dropdown">
+        <button className="dropbtn">{user}</button>
+
+        <div className="dropdown-content">
+          <a href="#">Profile</a>
+          <a href="#">Settings</a>
+          <a onClick={handleLogout}>Log out</a>
+        </div>
       </div>
     </header>
   );
