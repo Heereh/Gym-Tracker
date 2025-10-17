@@ -1,9 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-/* import {
-  type Workout as WorkoutTypes,
-  type Exercise as ExerciseTypes,
-} from '../types'; */
+
 
 export type WorkoutTypes = {
   _id: string;

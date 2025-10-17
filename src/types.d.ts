@@ -3,19 +3,28 @@ export type User = {
   name: string;
 };
 
-
-export type Workout = {
-  id: number;
-  day: string;
-  name: string;
-  exercises: Exercise[];
+export type WorkoutTypes = {
+  _id: string;
+  dayOfWeek: string;
+  exercises: ExerciseTypes[];
+  completed?: boolean;
 };
 
-export type Exercise = {
-  id: number;
+export type ExerciseTypes = {
+  _id: string;
   name: string;
   sets: number;
   reps: string;
-  weight: number;
-  nota: string;
+  weightKg: number;
+  notes: string;
 };
+
+export interface ExerciseApi extends Omit<ExerciseTypes, "_id"> {
+  id?: string;
+}
+
+export interface WorkoutApi extends Omit<WorkoutTypes, "_id"> {
+  id?: string;
+  userId?: string;
+  exercises: ExerciseApi[];
+}

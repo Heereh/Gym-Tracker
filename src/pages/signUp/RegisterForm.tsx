@@ -18,14 +18,14 @@ const RegisterForm = () => {
   const { login, setLoading } = useAuthStore();
   const navigate = useNavigate();
 
-  const handleSubmit = async (values, { setSubmitting, setErrors }) => {
+  const handleSubmit = async (values: registerInitialValues, { setSubmitting, setErrors }: { setSubmitting: (isSubmitting: boolean) => void; setErrors: (errors: object) => void; }) => {
     try {
       setLoading(true);
       const userData = await createUser(values);
       login(userData);
       navigate('/');
-    } catch (error) {
-      if (error.response?.status === 409) {
+    } catch (error: unknown) {
+      if (error && typeof error === 'object' && 'message' in error) {
         // Ejemplo: si el usuario ya existe (código 409)
         setErrors({ email: 'Este email ya está en uso.' });
       } else {

@@ -1,4 +1,3 @@
-import React from 'react';
 import CustomButton from '../CustomButton/CustomButton';
 import { Trash } from 'lucide-react';
 import './CardExericseStyle.css';

@@ -1,34 +1,46 @@
-import { ErrorMessage, Field, Form, Formik } from 'formik';
-import { loginValidationSchema } from '../../formik/ValidationSchema';
-import { type initialValuesLogin } from '../../formik/initialValues';
-import CustomButton from '../../component/iu/CustomButton/CustomButton';
-import { LoaderCircle } from 'lucide-react';
-import './signUpStyles.css';
-import { useAuthStore } from '../../store/GymUserStore';
-import { useNavigate } from 'react-router';
-import { loginUser } from '../../api/authService';
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import { loginValidationSchema } from "../../formik/ValidationSchema";
+import { type initialValuesLogin } from "../../formik/initialValues";
+import CustomButton from "../../component/iu/CustomButton/CustomButton";
+import { LoaderCircle } from "lucide-react";
+import "./signUpStyles.css";
+import { useAuthStore } from "../../store/GymUserStore";
+import { useNavigate } from "react-router";
+import { loginUser } from "../../api/authService";
 
 const initialValues: initialValuesLogin = {
-  email: '',
-  password: '',
+  email: "",
+  password: "",
+  id: "",
+  token: "",
 };
 
 const LoginForm = () => {
   const { login, setLoading } = useAuthStore();
   const navigate = useNavigate();
 
-  const handleSubmit = async (values, { setSubmitting, setErrors }) => {
+  const handleSubmit = async (
+    values: initialValuesLogin,
+    {
+      setSubmitting,
+      setErrors,
+    }: {
+      setSubmitting: (isSubmitting: boolean) => void;
+      setErrors: (errors: object) => void;
+    },
+  ) => {
     try {
       setLoading(true);
       const userData = await loginUser(values);
       login({ user: userData.user, token: userData.token });
-      navigate('/');
-    } catch (error) {
-      if (error.response?.status === 401) {
-        setErrors({ email: 'Credenciales incorrectas' });
+      navigate("/");
+    } catch (error: unknown) {
+      if (error && typeof error === "object" && "message" in error) {
+        alert(error.message);
+        setErrors({ email: "Credenciales incorrectas" });
       } else {
         alert(
-          'Hubo un error al iniciar sesión. Por favor, inténtalo de nuevo.',
+          "Hubo un error al iniciar sesión. Por favor, inténtalo de nuevo.",
         );
       }
     } finally {

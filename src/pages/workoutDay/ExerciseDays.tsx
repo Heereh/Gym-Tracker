@@ -1,18 +1,17 @@
-import './ExerciseDaysStyles.css';
-import CustomButton from '../../component/iu/CustomButton/CustomButton';
-import { Trash } from 'lucide-react';
-import { useGymStore } from '../../store/GymStore';
-import CardExercise from '../../component/iu/CardExercise/CardExercise';
-import { useNavigate, useParams } from 'react-router';
-import { getWorkoutDaysById, updateWorkoutDay } from '../../api/workoutService';
-import { useEffect, useState } from 'react';
+import "./ExerciseDaysStyles.css";
+import CustomButton from "../../component/iu/CustomButton/CustomButton";
+import { useGymStore } from "../../store/GymStore";
+import CardExercise from "../../component/iu/CardExercise/CardExercise";
+import { useParams } from "react-router";
+import { updateWorkoutDay } from "../../api/workoutService";
+import { useState } from "react";
 import ExerciseModal, {
   type ExerciseFormData,
-} from '../../component/iu/modal/Modal';
+} from "../../component/iu/modal/Modal";
 
 const ExerciseDays = () => {
   const { id } = useParams();
-  const { addExercise, updateExercise } = useGymStore();
+  const { addExercise } = useGymStore();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -23,7 +22,7 @@ const ExerciseDays = () => {
   const dayId = workout?._id;
 
   const EXERCISE_LIMIT = 8;
-  const canAddExercise = workout?.exercises.length >= EXERCISE_LIMIT;
+  const canAddExercise = (workout?.exercises.length || 0) >= EXERCISE_LIMIT;
 
   const handleSaveExercise = async (formData: ExerciseFormData) => {
     if (!workout) return;
@@ -43,10 +42,10 @@ const ExerciseDays = () => {
       );
 
       setIsModalOpen(false);
-      alert('¡Ejercicio guardado exitosamente!');
+      alert("¡Ejercicio guardado exitosamente!");
     } catch (error) {
-      console.error('Error al guardar el ejercicio:', error);
-      alert('Hubo un error al guardar el ejercicio. Inténtalo de nuevo.');
+      console.error("Error al guardar el ejercicio:", error);
+      alert("Hubo un error al guardar el ejercicio. Inténtalo de nuevo.");
     }
   };
 

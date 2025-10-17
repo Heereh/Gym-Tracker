@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { X } from 'lucide-react';
-import CustomButton from '../CustomButton/CustomButton';
-import './modalStyles.css';
-import { type ExerciseTypes } from '../../../store/GymStore';
+import React, { useState, useEffect } from "react";
+import { X } from "lucide-react";
+import CustomButton from "../CustomButton/CustomButton";
+import "./modalStyles.css";
+import { type ExerciseTypes } from "../../../store/GymStore";
 
 // Usamos Omit para crear un tipo para el formulario sin el 'id'
-export type ExerciseFormData = Omit<ExerciseTypes, 'id'>;
+export type ExerciseFormData = Omit<ExerciseTypes, "id">;
 
 interface ExerciseModalProps {
   isOpen: boolean;
@@ -23,11 +23,12 @@ const ExerciseModal: React.FC<ExerciseModalProps> = ({
   title,
 }) => {
   const defaultExercise: ExerciseFormData = {
-    name: '',
+    _id: "",
+    name: "",
     sets: 3,
-    reps: '10-12',
+    reps: "10-12",
     weightKg: 10,
-    notes: '',
+    notes: "",
   };
 
   const [formData, setFormData] = useState<ExerciseFormData>(
@@ -51,7 +52,7 @@ const ExerciseModal: React.FC<ExerciseModalProps> = ({
     const { name, value, type } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: type === 'number' ? Number(value) : value,
+      [name]: type === "number" ? Number(value) : value,
     }));
   };
 
