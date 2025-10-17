@@ -19,7 +19,11 @@ const ExerciseDays = () => {
     state.workouts.find((w) => w._id === id),
   );
 
-  const dayId = workout?._id;
+  if (!workout) {
+    return <div>Cargando rutina o Dia no encontrado</div>;
+  }
+
+  const dayId = workout._id;
 
   const EXERCISE_LIMIT = 8;
   const canAddExercise = (workout?.exercises.length || 0) >= EXERCISE_LIMIT;

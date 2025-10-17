@@ -5,7 +5,10 @@
     "skipLibCheck": true,
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "typeRoots": [
+      "./src/@types"
+    ]
   },
   "files": [],
   "references": [

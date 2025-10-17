@@ -1,3 +1,4 @@
+import type { WorkoutTypes } from "../types";
 import handleApiError from "../utils/handleApiError";
 import { parseWorkoutData } from "../utils/workoutTransformer";
 import authApi from "./apiClient";
@@ -25,7 +26,10 @@ export const getAllWorkouts = async () => {
   }
 };
 
-export const updateWorkoutDay = async (dayId: string, UpdatedData: string) => {
+export const updateWorkoutDay = async (
+  dayId: string,
+  UpdatedData: WorkoutTypes,
+) => {
   try {
     const response = await authApi.put(`/days/${dayId}`, UpdatedData);
     return response.data;
