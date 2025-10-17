@@ -15,7 +15,7 @@
 .modal-content {
   background: #1e1e1e; /* Un fondo oscuro para que coincida con un tema oscuro */
   color: #f0f0f0;
-  padding: 24px;
+  padding: var(--spacing-4);
   border-radius: 12px;
   width: 90%;
   max-width: 500px;
@@ -44,7 +44,7 @@
   background: none;
   border: none;
   cursor: pointer;
-  padding: 4px;
+  padding: var(--spacing-1);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -71,7 +71,9 @@
 
 .form-group-inline {
   display: flex;
-  gap: 16px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
 }
 
 .form-group-inline .form-group {
@@ -83,6 +85,7 @@
 }
 .form-group textarea {
   color: var(--text-secondary);
+  width: auto;
 }
 
 .modal-footer {
