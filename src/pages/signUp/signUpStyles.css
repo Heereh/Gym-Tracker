@@ -1,17 +1,16 @@
 .loginContainer {
   min-height: 100vh;
-  background: linear-gradient(135deg, #dbeafe 0%, #e0e7ff 100%);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: var(--spacing-4);
+  background-color: var(--background);
 }
 
-.card {
-  background-color: var(--background);
-  border: 1px solid var(--border);
+.login__card-container {
+  background-color: var(--surface);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-lg);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -22,7 +21,7 @@
   max-width: 28rem;
 }
 
-.card-header {
+.login__card-header {
   display: flex;
   flex-direction: column;
   align-items: center;

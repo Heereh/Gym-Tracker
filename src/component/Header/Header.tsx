@@ -1,4 +1,3 @@
-import { Dumbbell } from "lucide-react";
 import { useAuthStore } from "../../store/GymUserStore";
 import "./header.css";
 
@@ -15,8 +14,7 @@ const Header = () => {
   return (
     <header id="header">
       <div className="header-logo">
-        <Dumbbell className="logo-icon" />
-
+        <img className="logo-icon" src="/favicon.ico" alt="logo" />
         <a className="logo-title" href="/">
           Zylo
         </a>
@@ -26,7 +24,7 @@ const Header = () => {
 
         <div className="dropdown-content">
           <a href="#">Profile</a>
-          <a href="#">Settings</a>
+
           <a onClick={handleLogout}>Log out</a>
         </div>
       </div>

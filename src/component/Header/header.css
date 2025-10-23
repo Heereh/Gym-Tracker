@@ -12,19 +12,16 @@
 .header-logo {
   display: flex;
   align-items: center;
-  gap: 12px;
-
-  & .logo-icon {
-    color: var(--primary);
-    border: var(--radius-full);
-  }
+  gap: 6px;
+  width: 1.5rem;
+  height: 1.5rem;
 
   & .logo-title {
-    color: var(--primary);
+    color: var(--text-primary);
     font: bold;
-    font-size: 1.2rem;
+
     font-weight: 500;
-    letter-spacing: var(--spacing-2);
+    letter-spacing: var(--spacing-1);
   }
 }
 

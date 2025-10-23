@@ -23,8 +23,8 @@ const LoginPage = () => {
 
   return (
     <div className="loginContainer">
-      <div className="card loginCard">
-        <div className="card-header">
+      <div className="login__card-container loginCard">
+        <div className="login__card-header">
           <div className="logoContainer">
             <div className="logo">
               <Dumbbell className="logoIcon" />
